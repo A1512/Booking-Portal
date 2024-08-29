@@ -1,0 +1,31 @@
+
+-->if in [eslint]
+src\views\pages\register\UserRegister.js
+  Line 1:26:   Delete `␍`  prettier/prettier
+  Line 2:9:    Delete `␍`  prettier/prettier
+  Line 3:11:   Delete `␍`  prettier/prettier  this type of error occur in any then run below command 
+
+1. => npx eslint --fix src/your-directory/your-file.js
+2. => npx prettier --write src/your-directory/your-file.js
+
+
+//Agenda:
+1. management: open 
+
+->Role List	 
+->Role Rights Assignment
+->User List - assign role
+
+2. Business
+->Service
+->Business Category
+->Business List	
+->Feedback
+->Complaint
+->Payment
+->Business User
+
+3.Customer
+->Customer List
+
+ 

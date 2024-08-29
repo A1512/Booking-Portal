@@ -1,0 +1,114 @@
+TODO:
+task 1: add business logo - register business
+		-- add field in DB
+		-- create input field for select file
+		-- call api
+		-- store image in business.
+
+task 2: add cascading dropdown in customer registration
+		-- Country
+		-- State
+		-- City
+			
+task 3: open modal when customer choose category for booking slot.
+		-- ask location: cascading dropdown
+		-- get data of business by location.
+		-- get business services by business(id)
+		-- when any service selected then go for calender to choose 	
+		   date & time. 	
+
+22-03-2024 
+	- bcrypt password(customer & business)
+	- session time out 
+	- routing (next to-do)
+
+
+let list  = ['A','B','C','A'];
+list.forEach((value, index) => {
+	let count;
+	for(i = 0; i < list.length; i++){
+		if(value === list[i]){
+			count = 0;
+		}
+	}
+});
+
+let list  = ['A','B','B','A'];
+
+
+--> 25-4-2024
+-header footer will be same - Done
+-business name in business service page -Done
+-set map in business service page.
+- expand all, collapse all, clear filter,
+- best service provider.
+
+Rating logic:
+1) group by : business id 
+2) group by : service name
+3) average price of above both
+
+SELECT  [service_name], COUNT([service_name]) AS service_count, AVG([rating_number]) AS Rate FROM tbl_feedback WHERE business_id = 5053 GROUP BY [service_name]
+
+SELECT 
+    bs.[id], 
+    'http://localhost:1000/uploads/' + bs.[image] AS imageURL, 
+    bs.[name], 
+    bs.price, 
+    bs.business_id 
+FROM 
+    tbl_business_services bs 
+WHERE 
+    bs.business_id = 5053 
+    AND bs.[name] IN (
+        SELECT 
+            f.[service_name] 
+        FROM 
+            tbl_feedback f 
+        WHERE 
+            f.business_id = 5053 
+        GROUP BY 
+            f.[service_name] 
+        HAVING 
+            AVG(f.[rating_number]) >= 1
+    );
+
+
+	
+if priceFilter & reviewFilter 
+   if priceFilter  = 0
+		SELECT  bs.[id],  @localhostURL + bs.[image] AS imageURL,  bs.	[name], bs.price,  bs.business_id FROM tbl_business_services bs  	WHERE  bs.business_id = @businessID AND (price < 500) AND bs.[name] IN 	(SELECT f.[service_name] FROM tbl_feedback f WHERE f.business_id = 	@businessID GROUP BY f.[service_name] 
+		HAVING AVG(f.[rating_number]) >= @reviewFilter)	
+  else if priceFilter = 1
+		SELECT  bs.[id],  @localhostURL + bs.[image] AS imageURL,  bs.	[name], bs.price,  bs.business_id FROM tbl_business_services bs  	WHERE  bs.business_id = @businessID AND (price BETWEEN 500 AND 1000) AND bs.[name] IN 	(SELECT f.[service_name] FROM tbl_feedback f WHERE f.business_id = 	@businessID GROUP BY f.[service_name] 
+		HAVING AVG(f.[rating_number]) >= @reviewFilter)	
+  else if priceFilter = 2
+		SELECT  bs.[id],  @localhostURL + bs.[image] AS imageURL,  bs.	[name], bs.price,  bs.business_id FROM tbl_business_services bs  	WHERE  bs.business_id = @businessID AND (price BETWEEN 1000 AND 10000) AND bs.[name] IN 	(SELECT f.[service_name] FROM tbl_feedback f WHERE f.business_id = 	@businessID GROUP BY f.[service_name] 
+		HAVING AVG(f.[rating_number]) >= @reviewFilter)	
+  else if priceFilter = 3
+		SELECT  bs.[id],  @localhostURL + bs.[image] AS imageURL,  bs.	[name], bs.price,  bs.business_id FROM tbl_business_services bs  	WHERE  bs.business_id = @businessID AND (price > 10000) AND bs.[name] IN 	(SELECT f.[service_name] FROM tbl_feedback f WHERE f.business_id = 	@businessID GROUP BY f.[service_name] 
+		HAVING AVG(f.[rating_number]) >= @reviewFilter)	
+	
+
+
+else if priceFilter
+    if priceFilter = 1
+	SELECT [id], @localhostURL + [image] AS imageURL, [name], price, 	business_id FROM tbl_business_services WHERE price BETWEEN 500 AND  		1000 AND  business_id = @businessID;	
+   else if priceFilter = 2
+ 	SELECT [id], @localhostURL + [image] AS imageURL, [name], price, 	business_id FROM tbl_business_services WHERE price BETWEEN 1000 AND 	10000 AND  business_id = @businessID;
+   else if priceFilter = 3
+ 	SELECT [id], @localhostURL + [image] AS imageURL, [name], price, 	business_id FROM tbl_business_services WHERE price BETWEEN 1000 AND 	10000 AND  business_id = @businessID;
+   else if priceFilter = 4
+ 	SELECT [id], @localhostURL + [image] AS imageURL, [name], price, 	business_id FROM tbl_business_services WHERE price BETWEEN 1000 AND 	10000 AND  business_id = @businessID;
+	
+
+logic of getting business service with discount:
+	1. discount value > 0
+	2. start date & end date >= current date
+	3. while getting service, if dicount apply then that data should be sent to front-end
+	4. display both price to user before & after discount
+	5. if user go for booking & select payment then display discounted price.
+
+TODO: 
+	-> ask business to edit or add discount on service
+	
